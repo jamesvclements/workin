@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="440" viewBox="0 0 640 440">
+  <rect width="640" height="440" rx="16" fill="#f0edf4"/>
+  <rect x="114" y="36" width="412" height="370" rx="14" fill="white"/>
+  <g font-family="system-ui,sans-serif" fill="#35323e">
+    <text x="150" y="81" font-size="19" font-weight="600">Set up your workspace</text>
+    <text x="150" y="107" font-size="12" fill="#9993a3">Let's get everything ready.</text>
+    <g fill="#f7f6f9" stroke="#e9e6ed"><rect x="150" y="132" width="340" height="38" rx="6"/><rect x="150" y="185" width="340" height="38" rx="6"/><rect x="150" y="238" width="162" height="38" rx="6"/><rect x="328" y="238" width="162" height="38" rx="6"/><rect x="150" y="291" width="340" height="38" rx="6"/></g>
+    <g font-size="12" fill="#aaa4b3"><text x="164" y="156">Full name</text><text x="164" y="209">Workspace name</text><text x="164" y="262">Team size</text><text x="342" y="262">Your role</text><text x="164" y="315">Invite your teammates</text></g>
+    <rect x="150" y="350" width="340" height="32" rx="7" fill="#bbb3c9"/><text x="320" y="371" font-size="12" fill="white" text-anchor="middle">Create workspace</text>
+  </g>
+</svg>

@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="440" viewBox="0 0 640 440">
+  <rect width="640" height="440" rx="16" fill="#edf2f0"/>
+  <rect x="114" y="36" width="412" height="370" rx="14" fill="white"/>
+  <g font-family="system-ui,sans-serif" text-anchor="middle">
+    <circle cx="320" cy="112" r="22" fill="#e5f1ea"/><path d="m310 112 7 7 14-15" fill="none" stroke="#5e8c70" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="320" y="173" font-size="25" font-weight="600" fill="#293e32">Make yourself at home.</text>
+    <text x="320" y="201" font-size="13" fill="#929c96">What should we call you?</text>
+    <rect x="164" y="229" width="312" height="44" rx="8" fill="#fafcfb" stroke="#d9e4dd"/>
+    <text x="184" y="257" font-size="14" fill="#a3afa8" text-anchor="start">Your name</text>
+    <rect x="164" y="288" width="312" height="42" rx="8" fill="#49775b"/>
+    <text x="320" y="315" font-size="13" fill="white">Let's begin →</text>
+    <text x="320" y="359" font-size="11" fill="#a2aaa6">The rest can wait.</text>
+  </g>
+</svg>

@@ -1,0 +1,16 @@
+/* Demo chrome only. None of this is needed by the components. */
+body { margin: 0; background: #fff; color: #1b1b20; font: 13px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+.example-header { display: flex; align-items: center; justify-content: space-between; gap: 24px; width: min(684px, calc(100% - 56px)); margin: 64px auto 48px; }
+.example-header h1 { margin: 0; font-size: 25px; font-weight: 600; letter-spacing: -1.3px; }
+.example-header h1 span { color: #007aff; }
+.example-header p { color: #8e8e93; margin: 4px 0 0; }
+.example-header nav { display: flex; padding: 3px; border: 1px solid #eeeeF1; border-radius: 24px; background: #f7f7f9; }
+.example-header button { border: 0; padding: 7px 13px; background: none; border-radius: 20px; color: #82828a; font: inherit; font-size: 12px; cursor: pointer; }
+.example-header button[aria-pressed="true"] { background: #fff; color: #222; box-shadow: 0 1px 4px #0000000d; }
+.example-header button:focus-visible, footer a:focus-visible { outline: 2px solid #007aff; outline-offset: 3px; }
+#status { position: absolute; width: 1px; height: 1px; clip-path: inset(50%); overflow: hidden; }
+#status.has-error { position: static; width: auto; height: auto; clip-path: none; padding: 24px; text-align: center; }
+footer { margin: 32px 24px 60px; text-align: center; color: #98989f; font-size: 11px; line-height: 2; }
+footer a { color: #73737c; text-decoration: none; }
+footer a:hover { text-decoration: underline; }
+@media (max-width: 520px) { .example-header { margin-top: 32px; width: calc(100% - 36px); gap: 16px; } .example-header p { max-width: 140px; font-size: 12px; } .example-header button { padding: 7px 10px; } }
