@@ -26,7 +26,7 @@ A shared PR link, explicit reply, or direct reference can support a thread. Simi
 
 Use `parentId` for an earlier related moment. Use highlight groups for broader editorial groupings. A group is not a claim that its members were replies to one another.
 
-Detailed view follows source time. Highlights combine related work into short narratives with representative evidence. A prototype, feedback message, and shipped PR may become one highlight, while the thread still shows all three moments in order.
+The agent chooses the presentation in response to the user's request. A detailed timeline follows source time; a highlights request combines related work into short narratives with representative evidence. These are agent-authored presentations, not tabs or switches in the viewer. A prototype, feedback message, and shipped PR may become one highlight, while the thread still shows all three moments in order.
 
 ## Choose evidence the eye can recognize
 

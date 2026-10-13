@@ -12,7 +12,7 @@ Guidance and UI for remembering work. The user's agent supplies connections, jud
 1. Inspect the user's project and available authorized connections. Establish the sources, date range, timezone, and private data location. Ask only for choices you cannot infer.
 2. Read [gathering](references/gathering.md) and [curation](references/curation.md). Inspect any existing journal before making source requests.
 3. Read the [UI guide](ui/README.md). Reuse the supplied timeline or compose its smaller components. Keep the existing visual treatment unless the user requests a different design.
-4. Build the smallest local application that reads saved evidence, supplies display data to the UI, and saves changes. Keep private data outside this package and outside public source control. Start with one requested day.
+4. Build the smallest local application that reads saved evidence, supplies display data to the UI, and saves changes. Have it reflect the agent's saved presentation updates. Keep private data outside this package and outside public source control. Start with one requested day.
 5. Gather through the host's existing connections. Save full source records and available media before curating. Keep collection progress so later runs can resume.
 6. Open the journal, verify original text, links, media, and threads, then let the user refine the result. Ask about recurring refresh only if they want it; do not create a schedule by default.
 
@@ -27,7 +27,9 @@ Guidance and UI for remembering work. The user's agent supplies connections, jud
 
 ## What makes it Workin
 
-Short narrative bubbles establish the moment. Rich cards show the original messages, pull requests, documents, and media. Threads connect earlier ideas with later developments. Detailed and highlight views change the fidelity without losing the underlying evidence.
+**The agent controls the presentation.** The user asks their agent to change dates, grouping, or fidelity; the agent updates saved data and the viewer reflects it. Do not add a view switcher, date-picker toolbar, or another chat input unless explicitly requested. Keep reading interactions such as opening threads, expanding source cards, and playing media.
+
+Short narrative bubbles establish the moment. Rich cards show the original messages, pull requests, documents, and media. Threads connect earlier ideas with later developments. The agent can move from a detailed timeline to a few highlights without losing the underlying evidence.
 
 Keep original wording inside cards and editorial interpretation outside them. Preserve authorship, source time, lifecycle state, uncertainty, and clickable provenance. A contribution, substantive review, or useful discussion can matter as much as shipped code. Never invent progress or connections.
 

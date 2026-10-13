@@ -74,6 +74,7 @@ export interface Group {
   /** Representative sources from these moments. Omit to use the first, [] for none. */
   sourceIds?: string[];
 }
+/** Agent-authored rendering state. The viewer does not render mode/date controls. */
 export interface View {
   mode?: 'detailed' | 'highlights';
   /** Inclusive YYYY-MM-DD bounds, interpreted in timeZone. */

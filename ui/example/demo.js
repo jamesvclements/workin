@@ -10,14 +10,8 @@ try {
   for (const asset of Object.values(journal.media)) {
     asset.src = new URL(asset.src, import.meta.url).href;
   }
-  const timeline = createTimeline(container, journal);
-  for (const button of document.querySelectorAll('[data-mode]')) {
-    button.addEventListener('click', () => {
-      timeline.update({ view: { mode: button.dataset.mode } });
-      for (const other of document.querySelectorAll('[data-mode]')) other.setAttribute('aria-pressed', String(other === button));
-      status.textContent = `${button.textContent} view`;
-    });
-  }
+  // The agent supplies the presentation in journal.json. The page displays it.
+  createTimeline(container, journal);
 } catch (error) {
   status.classList.add('has-error');
   status.textContent = error.message;

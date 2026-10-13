@@ -27,7 +27,7 @@ Plain browser modules. No build step, framework, provider SDK, storage, or backg
     }],
   });
 
-  // Use stored evidence to change the view. No gathering needed.
+  // The host applies presentation data saved by the agent. No gathering needed.
   timeline.update({ view: { mode: 'detailed', from: '2026-01-12', to: '2026-01-12' } });
   // When your application removes this screen: timeline.destroy();
 </script>
@@ -62,8 +62,8 @@ The exact shapes are in [index.d.ts](index.d.ts); a complete fictional dataset i
 
 - **Moments:** stable `id`, source-time `at`, a plain-text `summary`, and `sources`. Optional `parentId` connects an earlier moment.
 - **Sources:** `slack`, `post`, `pull-request`, `document`, `event`, or `link`. Use original text. Optional `parts` retains links, bold, italic, and code without raw HTML.
-- **Groups:** disjoint `momentIds`, a summary, and optional representative `sourceIds`. Groups appear in Highlights. Ungrouped moments remain visible. Empty `sourceIds` shows only the summary.
-- **View:** `mode` (`detailed` or `highlights`), inclusive `from`/`to` dates, and optional omitted moment IDs. Dates use `timeZone`, which defaults to UTC.
+- **Groups:** disjoint `momentIds`, a summary, and optional representative `sourceIds`. Groups appear when the agent supplies `mode: 'highlights'`. Ungrouped moments remain visible. Empty `sourceIds` shows only the summary.
+- **View:** agent-authored rendering options: `mode` (`detailed` or `highlights`), inclusive `from`/`to` dates, and optional omitted moment IDs. These are data fields, not viewer controls. Dates use `timeZone`, which defaults to UTC.
 - **Media:** a map from attachment IDs to cached `{ src, poster? }` URLs served by the host. A missing asset shows a source-link fallback. Nothing is downloaded implicitly.
 - **Emoji:** a map from exact shortcodes to cached image URLs. Unknown shortcodes remain readable.
 
@@ -83,7 +83,9 @@ Call `update()` after reading changed local data. Supplied top-level fields repl
 
 Threads show connected stored moments, including context outside the current date filter. Highlight groups open their original members. A group with filtered-out members falls back to the remaining individual moments, avoiding a summary that claims hidden work. Closing a thread preserves the underlying view and returns focus to its trigger.
 
-The host supplies view controls and persists choices. The example's buttons only switch in-memory views. Durable clear/undo, live refresh, local evidence storage, media serving, and connector access belong to your application.
+The user talks to their agent to change the presentation. The host application watches the agent's saved local data and calls `update()` when it changes. It supplies persistence and refresh wiring, not a second set of presentation controls. Keep the viewer focused on reading, threads, source expansion, and media.
+
+The example reads one static `journal.json` fixture at load time. To explore another presentation, have your agent edit that data and reload. Automatic refresh, durable history, local evidence storage, media serving, and connector access belong to the application your agent builds.
 
 ## Style and extend
 
