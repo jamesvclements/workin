@@ -2,13 +2,13 @@
 
 A skill and UI ingredients for a personal work journal.
 
-Your agent gathers the work, connects the moments, and builds your version. Workin provides guidance and an iMessage-inspired timeline with original Slack messages, pull requests, posts, documents, and media.
+Your agent gathers the work, connects the moments, and wires up private local storage. Workin provides guidance and an iMessage-inspired timeline with original Slack messages, pull requests, posts, documents, and media.
 
 Ask your agent to change the timeframe, grouping, or level of detail. It updates the saved presentation; the timeline displays the result. The page is for reading the work, opening threads, and exploring source evidence.
 
 ## Give it to your agent
 
-> Read SKILL.md and build me a local work journal using these components. Use my existing connections, start with one day, and keep everything private. Store the full evidence and media locally so we can revisit and regroup it without fetching it again.
+> Read SKILL.md and references/ux.md, then build me a local work journal using the supplied renderer and styles without redesigning them. Use my existing connections, start with one day, and keep everything private. Store the full evidence and media locally so we can revisit and regroup it without fetching it again.
 
 The skill works from the repository root. Keep its references and UI alongside it when copying it into your agent's skills directory. It is also fine to point your agent directly at this folder.
 
@@ -16,8 +16,9 @@ The skill works from the repository root. Keep its references and UI alongside i
 
 ```text
 workin/
+├── AGENTS.md         Integration guardrails
 ├── SKILL.md          Where your agent starts
-├── references/       Gathering and curation guidance
+├── references/       Gathering, curation, and the UX contract
 └── ui/
     ├── components/   Bubbles, source cards, threads, media, stacks
     ├── styles.css    The visual treatment
@@ -48,8 +49,10 @@ python3 -m http.server 8000 --bind 127.0.0.1
 
 Open [the example](http://127.0.0.1:8000/ui/example/). Read the timeline, open a thread, and browse the media. Its presentation comes from the supplied data, just as it would from your agent. All people, work, links, and media in the example are fictional. No accounts are needed.
 
-## Make it yours
+## Preserve the experience
 
-Add a source card, change the presentation, or bring the components into an existing project. Preserve original evidence and keep personal records, credentials, downloaded media, and user preferences outside this repository. The example data is a display fixture, not a storage format.
+Use the supplied renderer and stylesheet directly. The [UX contract](references/ux.md) specifies the original inline thread animation, brand colors, attachment treatment, and card gestures. No visible page title, promotional footer, mode switcher, or carousel pager. Personalize the work through the agent; visual changes need an explicit request.
+
+Add a source adapter or bring the components into an existing project. Preserve original evidence and keep personal records, credentials, downloaded media, and user preferences outside this repository. The example data is a display fixture, not a storage format.
 
 Icon attribution is in [ui/ICON-LICENSES.txt](ui/ICON-LICENSES.txt).

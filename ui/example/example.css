@@ -1,13 +1,25 @@
-/* Demo chrome only. None of this is needed by the components. */
-body { margin: 0; background: #fff; color: #1b1b20; font: 13px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
-.example-header { width: min(684px, calc(100% - 56px)); margin: 64px auto 48px; }
-.example-header h1 { margin: 0; font-size: 25px; font-weight: 600; letter-spacing: -1.3px; }
-.example-header h1 span { color: #007aff; }
-.example-header p { color: #8e8e93; margin: 4px 0 0; }
-footer a:focus-visible { outline: 2px solid #007aff; outline-offset: 3px; }
-#status { position: absolute; width: 1px; height: 1px; clip-path: inset(50%); overflow: hidden; }
-#status.has-error { position: static; width: auto; height: auto; clip-path: none; padding: 24px; text-align: center; }
-footer { margin: 32px 24px 60px; text-align: center; color: #98989f; font-size: 11px; line-height: 2; }
-footer a { color: #73737c; text-decoration: none; }
-footer a:hover { text-decoration: underline; }
-@media (max-width: 520px) { .example-header { margin-top: 32px; width: calc(100% - 36px); } .example-header p { font-size: 12px; } }
+/* The viewer has no application chrome. These are page defaults only. */
+body {
+  margin: 0;
+  background: #fff;
+}
+html {
+  scrollbar-gutter: stable;
+}
+#status {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  clip-path: inset(50%);
+  overflow: hidden;
+}
+#status.has-error {
+  position: static;
+  width: auto;
+  height: auto;
+  clip-path: none;
+  padding: 24px;
+  font:
+    13px system-ui,
+    sans-serif;
+}

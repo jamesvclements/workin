@@ -1,30 +1,33 @@
-import { el, link, url } from './dom.js';
+import { element, safeUrl } from "./dom.js";
 
-/** Resolve only supplied assets. This component never contacts a provider API. */
-export function createMedia(attachment, { media = {} } = {}) {
-  const figure = el('figure', 'wk-media');
-  const cached = media[attachment.id];
-  const src = url(cached?.src);
-  if (src && ['image', 'video'].includes(attachment.kind)) {
-    const node = el(attachment.kind === 'video' ? 'video' : 'img');
-    if (attachment.kind === 'video') {
-      node.controls = true;
-      node.playsInline = true;
-      node.preload = 'metadata';
-      node.setAttribute('aria-label', attachment.alt || attachment.name);
-      if (url(cached.poster)) node.poster = url(cached.poster);
-    } else {
-      node.alt = attachment.alt || attachment.name;
-      node.loading = 'lazy';
-    }
-    node.addEventListener('error', () => {
-      node.replaceWith(link('Preview unavailable · Open original', attachment.url, 'wk-media-missing'));
-    }, { once: true });
-    node.src = src;
-    figure.append(node);
-  } else {
-    figure.append(link(src ? 'Open file' : 'Preview unavailable · Open original', src || attachment.url, 'wk-media-missing'));
+/** Original attachment viewer, with cached URLs supplied by the host. No fetches. */
+export function createMedia({ root, lifetime }) {
+  function openAttachment(path, type, name) {
+    if (!safeUrl(path)) return;
+    const viewer = element("dialog", "attachment-viewer");
+    viewer.setAttribute("aria-label", name);
+    const close = element("button", "", "Close");
+    close.type = "button";
+    close.addEventListener("click", () => viewer.close());
+    const media = element(type === "video" ? "video" : "img");
+    media.src = path;
+    if (type === "video") {
+      media.controls = true;
+      media.playsInline = true;
+    } else media.alt = name;
+    viewer.append(close, media);
+    viewer.addEventListener("click", (event) => {
+      if (event.target === viewer) viewer.close();
+    });
+    const dispose = () => {
+      if (type === "video") media.pause();
+      viewer.remove();
+      lifetime.signal.removeEventListener("abort", dispose);
+    };
+    viewer.addEventListener("close", dispose, { once: true });
+    lifetime.signal.addEventListener("abort", dispose, { once: true });
+    (typeof root === "function" ? root() : root).append(viewer);
+    viewer.showModal();
   }
-  figure.append(el('figcaption', '', attachment.name));
-  return figure;
+  return { openAttachment };
 }

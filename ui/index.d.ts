@@ -1,13 +1,19 @@
 /** Display data, not your storage schema. Keep original evidence separately. */
-export interface Person { name: string; avatar?: string }
+export interface Person {
+  name: string;
+  avatar?: string;
+  id?: string;
+  handle?: string;
+  verified?: boolean;
+}
 export interface TextPart {
   text: string;
-  style?: 'bold' | 'italic' | 'code' | 'codeblock';
+  style?: "bold" | "italic" | "code" | "codeblock";
   url?: string;
 }
 export interface Attachment {
   id: string;
-  kind: 'image' | 'video' | 'file';
+  kind: "image" | "video" | "file";
   name: string;
   alt?: string;
   /** Original source link; cached bytes are supplied through the media map. */
@@ -21,41 +27,55 @@ interface SourceBase {
   /** Formatted original text. When supplied, replaces text in the display. */
   parts?: TextPart[];
   attachments?: Attachment[];
-  layout?: 'list' | 'pair' | 'stack';
 }
 export interface MessageSource extends SourceBase {
-  type: 'slack' | 'post';
+  type: "slack" | "post";
   author: Person;
   at?: string;
   context?: string;
-  reactions?: { label: string; count: number }[];
+  reactions?: { label: string; count: number; image?: string }[];
+  thread?: { replyCount: number; participants?: Person[] };
+  metrics?: Partial<
+    Record<"likes" | "reposts" | "replies" | "views" | "bookmarks", number>
+  >;
 }
 export interface PullRequestSource extends SourceBase {
-  type: 'pull-request';
+  type: "pull-request";
   title: string;
   repository: string;
   number: number;
-  state: 'open' | 'merged' | 'closed' | 'draft';
+  state: "open" | "merged" | "closed" | "draft";
   author?: Person;
+  /** Original HTML, rendered through an allowlist. Resolve media to cached URLs. */
+  descriptionHtml?: string;
+  changedFiles?: number;
   additions?: number;
   deletions?: number;
 }
 export interface DocumentSource extends SourceBase {
-  type: 'document';
+  type: "document";
   title: string;
   provider?: string;
   excerpt?: boolean;
 }
 export interface EventSource extends SourceBase {
-  type: 'event';
+  type: "event";
   title: string;
   start: string;
   end?: string;
   /** A factual scheduling/RSVP label, not inferred attendance. */
   status?: string;
 }
-export interface LinkSource extends SourceBase { type: 'link'; title: string }
-export type Source = MessageSource | PullRequestSource | DocumentSource | EventSource | LinkSource;
+export interface LinkSource extends SourceBase {
+  type: "link";
+  title: string;
+}
+export type Source =
+  | MessageSource
+  | PullRequestSource
+  | DocumentSource
+  | EventSource
+  | LinkSource;
 export interface Moment {
   id: string;
   /** ISO timestamp with Z or a numeric offset. */
@@ -73,10 +93,13 @@ export interface Group {
   momentIds: string[];
   /** Representative sources from these moments. Omit to use the first, [] for none. */
   sourceIds?: string[];
+  /** Detailed view only: two or three adjacent independent moments, one source each. */
+  layout?: "pair" | "stack";
+  reason?: string;
 }
 /** Agent-authored rendering state. The viewer does not render mode/date controls. */
 export interface View {
-  mode?: 'detailed' | 'highlights';
+  mode?: "detailed" | "highlights";
   /** Inclusive YYYY-MM-DD bounds, interpreted in timeZone. */
   from?: string;
   to?: string;
@@ -88,23 +111,35 @@ export interface CardOptions {
   emoji?: Record<string, string>;
   compact?: boolean;
 }
-export interface TimelineOptions extends Omit<CardOptions, 'compact'> {
+export interface TimelineOptions extends Omit<CardOptions, "compact"> {
   moments: Moment[];
   groups?: Group[];
   view?: View;
+  embeds?: Record<
+    string,
+    {
+      variant: "full" | "compact" | "none";
+      collapsedHeight?: number;
+      reason?: string;
+    }
+  >;
+  /** Optional account identity used to avoid repeating your name on PR cards. */
+  identity?: { github?: string };
 }
 export interface Timeline {
   /** Replaces supplied top-level fields; pass a full view or media map. */
   update(patch: Partial<TimelineOptions>): void;
   destroy(): void;
 }
-export function createTimeline(container: HTMLElement, options: TimelineOptions): Timeline;
-export function createCard(source: Source, options?: CardOptions): HTMLElement;
+export function createTimeline(
+  container: HTMLElement,
+  options: TimelineOptions,
+): Timeline;
+export type DisposableElement = HTMLElement & { dispose(): void };
+export function createCard(
+  source: Source,
+  options?: CardOptions,
+): DisposableElement;
 export function createPullRequestChip(source: PullRequestSource): HTMLElement;
-export function createMedia(attachment: Attachment, options?: Pick<CardOptions, 'media'>): HTMLElement;
-export function createStack(nodes: HTMLElement[], options?: { label?: string }): HTMLElement;
-export function createMoment(moment: Moment, options?: CardOptions & {
-  parent?: Moment;
-  threadSize?: number;
-  onThread?: (id: string, trigger: HTMLElement) => void;
-}): HTMLElement;
+/** Original split pair (two cards) or gesture stack (three cards). */
+export function createStack(nodes: HTMLElement[]): DisposableElement;

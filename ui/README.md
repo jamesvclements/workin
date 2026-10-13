@@ -1,12 +1,14 @@
 # UI ingredients
 
-Plain browser modules. No build step, framework, provider SDK, storage, or background fetching. Use the complete timeline or the smaller pieces. The components preserve Workin's bubbles, original-source cards, earlier-context quotes, threads, cropped embeds, and media pairs/stacks.
+The Workin renderer, extracted into plain browser modules. Use it directly: it is the reference implementation, not a design brief. No dependencies, build step, provider SDK, background fetching, or storage layer.
 
-## Mount a timeline
+Read the [UX contract](../references/ux.md) before integration. The page contains the timeline. There is no visible title, introduction, footer, mode switcher, or date toolbar.
+
+## Mount
 
 ```html
 <link rel="stylesheet" href="./ui/styles.css">
-<div id="journal"></div>
+<main id="journal" aria-label="Work timeline"></main>
 <script type="module">
   import { createTimeline } from './ui/index.js';
 
@@ -21,74 +23,81 @@ Plain browser modules. No build step, framework, provider SDK, storage, or backg
         type: 'slack',
         url: 'https://example.invalid/messages/1',
         author: { name: 'Alex Morgan' },
+        at: '2026-01-12T10:00:00Z',
         context: '#design',
         text: 'First pass at onboarding. Feedback on the account step?',
       }],
     }],
   });
 
-  // The host applies presentation data saved by the agent. No gathering needed.
-  timeline.update({ view: { mode: 'detailed', from: '2026-01-12', to: '2026-01-12' } });
-  // When your application removes this screen: timeline.destroy();
+  // Apply presentation saved by the agent. No gathering or page controls.
+  timeline.update({ view: { from: '2026-01-12', to: '2026-01-12' } });
+  // Call timeline.destroy() when removing the screen.
 </script>
 ```
 
-Serve modules over HTTP, not `file://`. Paths in this snippet assume the page sits next to `ui/`.
+Serve modules over HTTP, not `file://`. Paths above assume the page sits beside `ui/`. The example adds only a loader for a local JSON fixture and relative cached assets. A real host watches saved local data and calls `update()`.
 
-## Compose smaller pieces
+## Display data
 
-```js
-import { createCard, createMedia, createStack } from './ui/index.js';
+[index.d.ts](index.d.ts) defines the contract; [example/journal.json](example/journal.json) demonstrates it. This is a projection, **not a lossless storage schema**.
 
-container.classList.add('wk');
-container.append(createCard(source, { timeZone, media, emoji }));
-container.append(createStack(attachments.map(item => createMedia(item, { media }))));
-```
-
-| Export | Returns |
+| Field | Meaning |
 | --- | --- |
-| `createTimeline(container, options)` | `{ update(patch), destroy() }` |
-| `createMoment(moment, options)` | A timestamp, bubble, and source cards |
-| `createCard(source, options)` | A source card; `compact: true` makes it expandable |
-| `createPullRequestChip(source)` | A small linked PR label |
-| `createMedia(attachment, { media })` | An image, video, file link, or honest placeholder |
-| `createStack(nodes, { label })` | A deck with previous/next controls |
+| `moments` | Stable IDs, source-time `at`, plain-text summaries, original sources, optional earlier `parentId` |
+| `groups` | Disjoint editorial groups with representative `sourceIds`; used for highlights |
+| `view` | Agent-authored `mode` (`detailed` or `highlights`), inclusive `from`/`to`, and `omitted` IDs |
+| `embeds` | Moment ID → `{ variant: 'full' \| 'compact' \| 'none', collapsedHeight?, reason? }` |
+| `media` | Attachment ID → cached `{ src, poster? }` browser URLs |
+| `emoji` | Shortcode → cached image URL |
+| `timeZone` | IANA timezone, default UTC |
 
-All smaller components return ordinary DOM elements. Wrap them in `.wk` for styling. The timeline creates its own `.wk` wrapper and removes only that wrapper on destruction. The host owns the lifecycle of standalone nodes; pause playing media before removing them.
+Source types are Slack messages, posts, PRs, documents, calendar events, and links. Preserve the original text, author, time, status, and provenance. `parts` preserves formatted text without executable HTML. PR `descriptionHtml` is copied through an allowlist; resolve any embedded media to your local cache first.
 
-## Supply a display projection
+For a pair or stack of **source cards**, set a group's `layout` to `pair` or `stack`. This requires exactly two or three adjacent independent moments, each with one source. Use `parentId` and threads for developments over time. Do not set a source or attachment `layout`: attachment arrays keep their provider-native treatment. No image carousel is provided.
 
-The exact shapes are in [index.d.ts](index.d.ts); a complete fictional dataset is in [example/journal.json](example/journal.json).
+Groups with filtered-out members fall back to the remaining individual moments. Threads focus connected developments within the supplied view. Highlight groups open their member moments. Grouping does not imply a literal provider thread.
 
-- **Moments:** stable `id`, source-time `at`, a plain-text `summary`, and `sources`. Optional `parentId` connects an earlier moment.
-- **Sources:** `slack`, `post`, `pull-request`, `document`, `event`, or `link`. Use original text. Optional `parts` retains links, bold, italic, and code without raw HTML.
-- **Groups:** disjoint `momentIds`, a summary, and optional representative `sourceIds`. Groups appear when the agent supplies `mode: 'highlights'`. Ungrouped moments remain visible. Empty `sourceIds` shows only the summary.
-- **View:** agent-authored rendering options: `mode` (`detailed` or `highlights`), inclusive `from`/`to` dates, and optional omitted moment IDs. These are data fields, not viewer controls. Dates use `timeZone`, which defaults to UTC.
-- **Media:** a map from attachment IDs to cached `{ src, poster? }` URLs served by the host. A missing asset shows a source-link fallback. Nothing is downloaded implicitly.
-- **Emoji:** a map from exact shortcodes to cached image URLs. Unknown shortcodes remain readable.
-
-For example, after your agent caches an attachment:
+## Cached assets
 
 ```js
 const media = {
-  'slack:example:file-1': { src: '/private-media/prototype.mp4', poster: '/private-media/prototype.jpg' },
+  'slack:example:file-1': {
+    src: '/private-media/prototype.mp4',
+    poster: '/private-media/prototype.jpg',
+  },
 };
 ```
 
-These are browser URLs into your local application's private media service, not filesystem paths. Prefer same-origin cached URLs for media, avatars, and emoji. The UI will load the asset URLs you supply. Source links open only when clicked. Store source URLs and actual file paths in the private journal, then resolve them into this display map.
+These are browser URLs served from the host's private cache, not filesystem paths or expiring provider links. Cache avatars and custom emoji too. Missing media retains the source link and an honest fallback. Rendering and changing the view must not call a source provider. The components load only the asset URLs supplied to them.
 
-## Updates, filtering, and threads
+## Smaller pieces
 
-Call `update()` after reading changed local data. Supplied top-level fields replace previous fields; a new `view` replaces the whole view. Updating rebuilds the timeline, closes an open thread, resets card expansion, and pauses discarded media. No page reload or provider access is involved.
+Prefer `createTimeline()` for a journal. Compose individual pieces only when integrating into an existing host; retain their styles and behavior.
 
-Threads show connected stored moments, including context outside the current date filter. Highlight groups open their original members. A group with filtered-out members falls back to the remaining individual moments, avoiding a summary that claims hidden work. Closing a thread preserves the underlying view and returns focus to its trigger.
+```js
+import { createCard, createStack } from './ui/index.js';
 
-The user talks to their agent to change the presentation. The host application watches the agent's saved local data and calls `update()` when it changes. It supplies persistence and refresh wiring, not a second set of presentation controls. Keep the viewer focused on reading, threads, source expansion, and media.
+container.classList.add('workin');
+const cards = sources.map(source => createCard(source, { media, emoji }));
+const stack = createStack(cards); // Exactly two or three source cards.
+container.append(stack);
+// Before removing it: stack.dispose();
+```
 
-The example reads one static `journal.json` fixture at load time. To explore another presentation, have your agent edit that data and reload. Automatic refresh, durable history, local evidence storage, media serving, and connector access belong to the application your agent builds.
+| Export | Responsibility |
+| --- | --- |
+| `createTimeline(container, options)` | Timeline, bubbles, dates, relationships, original animated thread focus; returns `update` and `destroy` |
+| `createCard(source, options)` | Original source card; `compact: true` uses the expand/collapse crop |
+| `createPullRequestChip(source)` | Linked PR title with its colored lifecycle icon |
+| `createStack(cards)` | Two-card split pair or three-card gesture stack, no visible pager |
 
-## Style and extend
+Cards and stacks return DOM elements with `dispose()`. The timeline owns its own `.workin` wrapper and cleans up its listeners, observers, animations, dialogs, and media. Standalone components require a `.workin` ancestor and explicit disposal. CSS is scoped with native nesting; use a current browser.
 
-CSS selectors are scoped to `.wk` and `wk-` classes; importing the stylesheet does not reset the host page. Override `--wk-accent`, `--wk-ink`, `--wk-muted`, `--wk-paper`, `--wk-bubble`, `--wk-line`, or `--wk-width` on `.wk`. The included palette is light; a complete dark theme needs additional card/media colors.
+`update()` replaces supplied top-level fields. Supply a full `view` or media map. It preserves expanded cards and the visible scroll anchor; an open thread is reopened when its view is unchanged. A changed view closes the thread. Updates rebuild cards, so playing media is paused. Storage, history, and refresh wiring belong to the host.
 
-To add a source, extend `Source` in `index.d.ts` and the dispatcher in `components/card.js`. Keep provider access outside rendering. Prefer one component for a real reusable behavior, not a framework of abstractions. Maintain keyboard access, source provenance, and truthful missing-media states.
+## Internal composition
+
+`evidence.js` adapts the display data. `renderer.js` composes the timeline. `cards.js` renders source evidence. `embed.js`, `thread.js`, `stack.js`, and `media.js` each own one reading interaction. `lifetime.js` handles cleanup. `styles.css` preserves the original appearance, including brand colors, spacing, and motion.
+
+Extend a source type in `index.d.ts`, `evidence.js`, and `cards.js` when needed. Keep gathering outside rendering. Do not replace the renderer or restyle the journal unless the user explicitly requests a visual change.

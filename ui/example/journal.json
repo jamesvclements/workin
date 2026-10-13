@@ -1,17 +1,40 @@
 {
   "timeZone": "UTC",
-  "view": { "mode": "detailed" },
+  "view": {
+    "mode": "detailed"
+  },
   "media": {
-    "example:before": { "src": "./before.svg" },
-    "example:after": { "src": "./after.svg" },
-    "example:mobile": { "src": "./mobile.svg" }
+    "example:before": {
+      "src": "./before.svg"
+    },
+    "example:after": {
+      "src": "./after.svg"
+    }
   },
   "groups": [
     {
       "id": "onboarding",
       "summary": "Made the first minute feel smaller. Took onboarding from an early prototype to a shipped, two-step flow.",
-      "momentIds": ["prototype", "feedback", "shipped"],
-      "sourceIds": ["slack:example:prototype", "github:example:onboarding-42"]
+      "momentIds": [
+        "prototype",
+        "feedback",
+        "shipped"
+      ],
+      "sourceIds": [
+        "slack:example:prototype",
+        "github:example:onboarding-42"
+      ]
+    },
+    {
+      "id": "polish",
+      "summary": "Finished three small fixes around focus, saved input, and narrow screens.",
+      "momentIds": [
+        "focus",
+        "draft",
+        "mobile"
+      ],
+      "layout": "stack",
+      "reason": "Three adjacent independent fixes with one original PR card each."
     }
   ],
   "moments": [
@@ -24,15 +47,37 @@
           "id": "slack:example:prototype",
           "type": "slack",
           "url": "https://example.invalid/messages/prototype",
-          "author": { "name": "Alex Morgan" },
+          "author": {
+            "name": "Alex Morgan"
+          },
           "at": "2026-01-12T10:15:00Z",
           "context": "#design",
           "text": "First pass at the welcome flow. We were asking for five things before someone could try anything.\n\nWhat if we start with just a name, then let them explore? Before and after below.",
-          "reactions": [{ "label": "eyes", "count": 4 }, { "label": "heart", "count": 3 }],
-          "layout": "pair",
+          "reactions": [
+            {
+              "label": "eyes",
+              "count": 4
+            },
+            {
+              "label": "heart",
+              "count": 3
+            }
+          ],
           "attachments": [
-            { "id": "example:before", "kind": "image", "name": "Before · everything at once", "alt": "Fictional onboarding form asking for several details.", "url": "https://example.invalid/files/before" },
-            { "id": "example:after", "kind": "image", "name": "After · just the first step", "alt": "Fictional welcome screen with a single name field.", "url": "https://example.invalid/files/after" }
+            {
+              "id": "example:before",
+              "kind": "image",
+              "name": "Before \u00b7 everything at once",
+              "alt": "Fictional onboarding form asking for several details.",
+              "url": "https://example.invalid/files/before"
+            },
+            {
+              "id": "example:after",
+              "kind": "image",
+              "name": "After \u00b7 just the first step",
+              "alt": "Fictional welcome screen with a single name field.",
+              "url": "https://example.invalid/files/after"
+            }
           ]
         }
       ]
@@ -47,11 +92,18 @@
           "id": "slack:example:feedback",
           "type": "slack",
           "url": "https://example.invalid/messages/feedback",
-          "author": { "name": "Sam Rivera" },
+          "author": {
+            "name": "Sam Rivera"
+          },
           "at": "2026-01-12T13:50:00Z",
-          "context": "#design · Thread reply",
+          "context": "#design \u00b7 Thread reply",
           "text": "This feels much better. Could the workspace step be skippable too? I'd love to see the product before naming the space.",
-          "reactions": [{ "label": "thumbsup", "count": 2 }]
+          "reactions": [
+            {
+              "label": "thumbsup",
+              "count": 2
+            }
+          ]
         }
       ]
     },
@@ -85,7 +137,9 @@
           "repository": "example/studio",
           "number": 42,
           "state": "merged",
-          "author": { "name": "Alex Morgan" },
+          "author": {
+            "name": "Alex Morgan"
+          },
           "text": "Ask for a name first. Move workspace settings to an optional second step.\n\nKeeps entered values when going back and restores focus to the field that needs attention.",
           "additions": 86,
           "deletions": 124
@@ -104,31 +158,92 @@
           "title": "First-run walkthrough",
           "start": "2026-01-16T15:00:00Z",
           "end": "2026-01-16T15:30:00Z",
-          "status": "Scheduled · attendance unknown"
+          "status": "Scheduled \u00b7 attendance unknown"
+        }
+      ]
+    },
+    {
+      "id": "focus",
+      "at": "2026-01-15T14:00:00Z",
+      "summary": "Keep keyboard focus on the active field.",
+      "sources": [
+        {
+          "id": "github:example:polish-43",
+          "type": "pull-request",
+          "url": "https://example.invalid/pull/43",
+          "title": "Keep keyboard focus on the active field",
+          "repository": "example/studio",
+          "number": 43,
+          "state": "merged",
+          "text": "Restore focus after going back so the next keystroke reaches the right field."
+        }
+      ]
+    },
+    {
+      "id": "draft",
+      "at": "2026-01-15T15:00:00Z",
+      "summary": "Keep the name when setup is skipped.",
+      "sources": [
+        {
+          "id": "github:example:polish-44",
+          "type": "pull-request",
+          "url": "https://example.invalid/pull/44",
+          "title": "Keep the name when setup is skipped",
+          "repository": "example/studio",
+          "number": 44,
+          "state": "merged",
+          "text": "Preserve the draft name while exploring. Return to the same value on the next visit."
+        }
+      ]
+    },
+    {
+      "id": "mobile",
+      "at": "2026-01-15T16:00:00Z",
+      "summary": "Fit the welcome step on a narrow screen.",
+      "sources": [
+        {
+          "id": "github:example:polish-45",
+          "type": "pull-request",
+          "url": "https://example.invalid/pull/45",
+          "title": "Fit the welcome step on a narrow screen",
+          "repository": "example/studio",
+          "number": 45,
+          "state": "merged",
+          "text": "Keep the action visible above the keyboard and avoid horizontal scrolling."
         }
       ]
     },
     {
       "id": "recap",
       "at": "2026-01-16T17:10:00Z",
-      "summary": "Shared a few frames from the week. Less setup, more trying things.",
+      "summary": "Shared the finished welcome flow.",
       "sources": [
         {
           "id": "social:example:recap",
           "type": "post",
           "url": "https://example.invalid/posts/recap",
-          "author": { "name": "Alex Morgan" },
+          "author": {
+            "name": "Alex Morgan"
+          },
           "at": "2026-01-16T17:10:00Z",
           "context": "Post",
           "text": "A small thing from this week: making the first minute feel like using the product, not filling in a form.",
-          "layout": "stack",
           "attachments": [
-            { "id": "example:after", "kind": "image", "name": "One small first step", "url": "https://example.invalid/files/after" },
-            { "id": "example:mobile", "kind": "image", "name": "Room to explore", "url": "https://example.invalid/files/mobile" },
-            { "id": "example:before", "kind": "image", "name": "Where it started", "url": "https://example.invalid/files/before" }
+            {
+              "id": "example:after",
+              "kind": "image",
+              "name": "One small first step",
+              "url": "https://example.invalid/files/after"
+            }
           ]
         }
       ]
     }
-  ]
+  ],
+  "embeds": {
+    "recap": {
+      "variant": "compact",
+      "collapsedHeight": 260
+    }
+  }
 }
