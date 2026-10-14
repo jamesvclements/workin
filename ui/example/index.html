@@ -7,7 +7,12 @@
     <title>workin’</title>
     <link rel="icon" href="data:," />
     <link rel="stylesheet" href="../styles.css" />
-    <link rel="stylesheet" href="./example.css" />
+    <style>
+      body { margin: 0; background: #fff; }
+      html { scrollbar-gutter: stable; }
+      #status { position: absolute; width: 1px; height: 1px; clip-path: inset(50%); overflow: hidden; }
+      #status.has-error { position: static; width: auto; height: auto; clip-path: none; padding: 24px; font: 13px system-ui, sans-serif; }
+    </style>
   </head>
   <body>
     <main id="journal" aria-label="Work timeline" aria-busy="true"></main>

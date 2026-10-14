@@ -1,58 +1,33 @@
 # workin'
 
-A skill and UI ingredients for a personal work journal.
+A skill and composed UI for a personal work journal. Your agent supplies connections, private storage, and curation. Workin supplies the timeline.
 
-Your agent gathers the work, connects the moments, and wires up private local storage. Workin provides guidance and an iMessage-inspired timeline with original Slack messages, pull requests, posts, documents, and media.
+> Read SKILL.md and build me a local work journal using these components and my existing connections. Start with one day. Keep the full evidence and media so we can revisit it without fetching again.
 
-Ask your agent to change the timeframe, grouping, or level of detail. It updates the saved presentation; the timeline displays the result. The page is for reading the work, opening threads, and exploring source evidence.
+## What's here
 
-## Give it to your agent
+- [SKILL.md](SKILL.md): gathering, persistence, curation, and UX rules.
+- [ui/index.js](ui/index.js): `createTimeline`, `createCard`, `createPair`, and `createPullRequestChip`.
+- [ui/index.d.ts](ui/index.d.ts): the display contract and API options.
+- [ui/components/cards/](ui/components/cards/): individual source cards and shared parts. Timeline, threads, media, and lifecycle live beside them.
+- [ui/example/](ui/example/): a three-moment journal from James's public before-and-after and agent-browser work.
 
-> Read SKILL.md and references/ux.md, then build me a local work journal using the supplied renderer and styles without redesigning them. Use my existing connections, start with one day, and keep everything private. Store the full evidence and media locally so we can revisit and regroup it without fetching it again.
+No dependencies or build step. Serve this directory on localhost with a static server that supports byte-range requests for video, then open `/ui/example/`.
 
-The skill works from the repository root. Keep its references and UI alongside it when copying it into your agent's skills directory. It is also fine to point your agent directly at this folder.
+## Mount
 
-## The ingredients
-
-```text
-workin/
-├── AGENTS.md         Integration guardrails
-├── SKILL.md          Where your agent starts
-├── references/       Gathering, curation, and the UX contract
-└── ui/
-    ├── components/   Bubbles, source cards, threads, media
-    ├── styles.css    The visual treatment
-    ├── index.js      Public component exports
-    ├── index.d.ts    The display-data contract
-    └── example/      A small, entirely fictional journal
+```js
+import { createTimeline } from './ui/index.js';
+// Load ui/styles.css in the page. Resolve cached media URLs in your host.
+const timeline = createTimeline(document.querySelector('main'), savedDisplayData);
+timeline.update({ view: { from: '2026-09-03', to: '2026-09-03' } });
+// Call timeline.destroy() when removing the screen.
 ```
 
-- **Guidance:** gather full evidence, recognize meaningful work, and connect related moments.
-- **UI:** use the complete timeline or compose the individual components.
-- **Your agent:** chooses local storage, uses its existing connections, and wires up the application.
+`update()` replaces supplied top-level fields. Standalone cards need a `.workin` ancestor and `dispose()` on removal. Use a current browser for native CSS nesting. Keep personal data outside this package.
 
-Everything in the UI is plain JavaScript and CSS. No dependencies or build step. See the [UI guide](ui/README.md) for the short integration example.
+## Example sources
 
-## Keep the memory
+The PR cards use labeled description excerpts from [before-and-after #5](https://github.com/vercel-labs/before-and-after/pull/5) and [agent-browser #1763](https://github.com/vercel-labs/agent-browser/pull/1763). The [public announcement](https://x.com/jamesvclements/status/2095570044214260128) retains its original text and recording, cached under `ui/example/assets/`. No private Slack messages, colleague identities, or engagement snapshots are included. Example data is display data, not a lossless archive.
 
-Original evidence, cached media, collection progress, saved curation, and temporary views have different jobs. Keep them separately in private local storage. A request to change the timeframe or level of detail should read what is already there. Refreshes fetch missing or changed activity and resume partial work.
-
-The components display supplied data. They do not connect to providers, run a model, or persist a journal. Those pieces belong to the application your agent builds. Read [gathering](references/gathering.md) for storage and refresh guidance, and [curation](references/curation.md) for the editorial approach.
-
-## See the example
-
-From this directory, serve the files locally:
-
-```sh
-python3 -m http.server 8000 --bind 127.0.0.1
-```
-
-Open [the example](http://127.0.0.1:8000/ui/example/). Read the timeline, open a thread, and browse the media. Its presentation comes from the supplied data, just as it would from your agent. The demo uses Slack, GitHub PRs, X posts, and Calendar, matching source types verified in the original journal. All people, work, links, and media in the example are fictional. No accounts are needed.
-
-## Preserve the experience
-
-Use the supplied renderer and stylesheet directly. The [UX contract](references/ux.md) specifies the original inline thread animation, brand colors, and attachment treatment. No visible page title, promotional footer, mode switcher, or card carousel. Personalize the work through the agent; visual changes need an explicit request.
-
-Add a source adapter or bring the components into an existing project. Preserve original evidence and keep personal records, credentials, downloaded media, and user preferences outside this repository. The example data is a display fixture, not a storage format.
-
-Icon attribution is in [ui/ICON-LICENSES.txt](ui/ICON-LICENSES.txt).
+[Icon attribution](ui/ICON-LICENSES.txt).

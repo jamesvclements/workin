@@ -1,232 +1,98 @@
 {
-  "timeZone": "UTC",
-  "view": {
-    "mode": "detailed"
-  },
+  "timeZone": "America/New_York",
   "media": {
-    "example:before": {
-      "src": "./assets/glass-first-pass.svg"
-    },
-    "example:after": {
-      "src": "./assets/glass-refined.svg"
-    },
-    "example:motion": {
-      "src": "./assets/glass-motion.mp4",
-      "poster": "./assets/glass-refined.svg"
+    "recording-demo": {
+      "src": "./assets/recording.mp4",
+      "poster": "./assets/recording.jpg"
     }
   },
-  "groups": [
+  "moments": [
     {
-      "id": "glass",
-      "summary": "Took a glass hero from a first study to a quieter, draggable interaction.",
-      "momentIds": [
-        "prototype",
-        "feedback",
-        "shipped"
-      ],
-      "sourceIds": [
-        "slack:example:prototype",
-        "github:example:glass-42"
+      "id": "skill",
+      "at": "2026-09-02T19:50:45Z",
+      "summary": "Reduced before-and-after to a skill around agent-browser and gh.",
+      "sources": [
+        {
+          "id": "github:vercel-labs/before-and-after:5",
+          "type": "pull-request",
+          "url": "https://github.com/vercel-labs/before-and-after/pull/5",
+          "title": "[skill] Reduce before-and-after to agent-browser + gh",
+          "repository": "vercel-labs/before-and-after",
+          "number": 5,
+          "state": "merged",
+          "author": {
+            "name": "jamesvclements"
+          },
+          "text": "Turns `before-and-after` into a thin skill around `agent-browser` and `gh --attach`. Browser capture and Vercel access stay with their source tool; this package now owns PR formatting, attachment publishing, and guidance for intelligent captures.",
+          "additions": 1739,
+          "deletions": 6410,
+          "changedFiles": 74,
+          "descriptionHtml": "<p>Turns <code>before-and-after</code> into a thin skill around <code>agent-browser</code> and <code>gh --attach</code>. Browser capture and Vercel access stay with their source tool; this package now owns PR formatting, attachment publishing, and guidance for intelligent captures.</p><p><em>Excerpt</em></p>"
+        }
       ]
     },
     {
-      "id": "polish",
-      "summary": "Polished keyboard movement, release behavior, and touch dragging.",
-      "momentIds": [
-        "keyboard",
-        "release",
-        "mobile"
+      "id": "recording",
+      "at": "2026-09-03T17:10:27Z",
+      "summary": "Shipped 30 fps recording by default, with support for 60 fps.",
+      "sources": [
+        {
+          "id": "github:vercel-labs/agent-browser:1763",
+          "type": "pull-request",
+          "url": "https://github.com/vercel-labs/agent-browser/pull/1763",
+          "title": "[cli] Record at 30 fps by default, up to 60, from Page.startScreencast",
+          "repository": "vercel-labs/agent-browser",
+          "number": 1763,
+          "state": "merged",
+          "author": {
+            "name": "jamesvclements"
+          },
+          "text": "Video recording captured 10 fps by polling `Page.captureScreenshot` on a fixed interval, so scrolls, hovers, and transitions came out as a slideshow. Recording now defaults to 30 fps, accepts `--fps` from 1 to 60, and takes its frames from `Page.startScreencast` on a dedicated CDP session, so a 60 fps take actually holds 60 distinct pictures per second.",
+          "additions": 1289,
+          "deletions": 173,
+          "changedFiles": 14,
+          "descriptionHtml": "<p>Video recording captured 10 fps by polling <code>Page.captureScreenshot</code> on a fixed interval, so scrolls, hovers, and transitions came out as a slideshow. Recording now defaults to 30 fps, accepts <code>--fps</code> from 1 to 60, and takes its frames from <code>Page.startScreencast</code> on a dedicated CDP session, so a 60 fps take actually holds 60 distinct pictures per second.</p><p><em>Excerpt</em></p>"
+        }
+      ]
+    },
+    {
+      "id": "announcement",
+      "parentId": "recording",
+      "at": "2026-09-03T17:50:07.000Z",
+      "summary": "Shared the 60 fps recording demo.",
+      "sources": [
+        {
+          "id": "x:2095570044214260128",
+          "type": "post",
+          "url": "https://x.com/jamesvclements/status/2095570044214260128",
+          "author": {
+            "name": "James Clements",
+            "handle": "@jamesvclements"
+          },
+          "at": "2026-09-03T17:50:07.000Z",
+          "parts": [
+            {
+              "text": "agent-browser.dev",
+              "url": "https://agent-browser.dev"
+            },
+            {
+              "text": " can now capture video at 60 fps, making it easy to add proof of polish :)"
+            }
+          ],
+          "attachments": [
+            {
+              "id": "recording-demo",
+              "kind": "video",
+              "name": "Agent-browser 60 fps recording demo",
+              "alt": "Public before-and-after recording comparison for agent-browser, showing the SWR and deepsec pages.",
+              "url": "https://x.com/jamesvclements/status/2095570044214260128"
+            }
+          ]
+        }
       ]
     }
   ],
-  "moments": [
-    {
-      "id": "prototype",
-      "at": "2026-01-12T10:15:00Z",
-      "summary": "First pass at the glass hero.",
-      "sources": [
-        {
-          "id": "slack:example:prototype",
-          "type": "slack",
-          "url": "https://example.invalid/messages/prototype",
-          "author": {
-            "name": "Alex Morgan"
-          },
-          "at": "2026-01-12T10:15:00Z",
-          "context": "#design",
-          "text": "Playing with a glass lens over the headline. It magnifies and distorts the type as you move it.\n\nFirst pass below. The rim and shadow still feel a bit heavy.",
-          "reactions": [
-            {
-              "label": "eyes",
-              "count": 4
-            },
-            {
-              "label": "heart",
-              "count": 3
-            }
-          ],
-          "attachments": [
-            {
-              "id": "example:before",
-              "kind": "image",
-              "name": "First pass",
-              "alt": "Early glass study with a heavier lens over large black typography.",
-              "url": "https://example.invalid/files/before"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "id": "feedback",
-      "parentId": "prototype",
-      "at": "2026-01-12T14:30:00Z",
-      "summary": "Blurred the whole supporting line after Sam’s feedback.",
-      "sources": [
-        {
-          "id": "slack:example:feedback",
-          "type": "slack",
-          "url": "https://example.invalid/messages/feedback",
-          "author": {
-            "name": "Sam Rivera"
-          },
-          "at": "2026-01-12T13:50:00Z",
-          "context": "#design · Thread reply",
-          "text": "This pass is much closer. The lighter rim and consistent blur across the supporting line make a difference. Let’s keep the glass still until I drag it.",
-          "reactions": [
-            {
-              "label": "thumbsup",
-              "count": 2
-            }
-          ],
-          "attachments": [
-            {
-              "id": "example:after",
-              "kind": "image",
-              "name": "Lighter rim and shadow",
-              "alt": "Refined glass study with a subtle rim, softer shadow, and consistent supporting-line blur.",
-              "url": "https://example.invalid/files/after"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "id": "shipped",
-      "parentId": "feedback",
-      "at": "2026-01-14T16:05:00Z",
-      "summary": "Shipped the draggable lens. Quiet until you move it.",
-      "sources": [
-        {
-          "id": "github:example:glass-42",
-          "type": "pull-request",
-          "url": "https://example.invalid/pull/42",
-          "title": "Make the glass hero draggable",
-          "repository": "example/studio",
-          "number": 42,
-          "state": "merged",
-          "author": {
-            "name": "Alex Morgan"
-          },
-          "text": "The lens stays still until dragged. Refraction follows its position, with a lighter rim and shadow.\n\nApplies the blur to the full supporting line. The recorded pass includes movement across both lines of type.",
-          "additions": 86,
-          "deletions": 124
-        }
-      ]
-    },
-    {
-      "id": "walkthrough",
-      "at": "2026-01-15T11:00:00Z",
-      "summary": "Scheduled a review of the glass interaction.",
-      "sources": [
-        {
-          "id": "calendar:example:walkthrough",
-          "type": "event",
-          "url": "https://example.invalid/events/walkthrough",
-          "title": "Glass interaction review",
-          "start": "2026-01-16T15:00:00Z",
-          "end": "2026-01-16T15:30:00Z",
-          "status": "Scheduled · attendance unknown"
-        }
-      ]
-    },
-    {
-      "id": "keyboard",
-      "at": "2026-01-15T14:00:00Z",
-      "summary": "Move the lens with arrow keys.",
-      "sources": [
-        {
-          "id": "github:example:polish-43",
-          "type": "pull-request",
-          "url": "https://example.invalid/pull/43",
-          "title": "Move the lens with arrow keys",
-          "repository": "example/studio",
-          "number": 43,
-          "state": "merged",
-          "text": "Keep focus on the lens and allow arrow-key movement without scrolling the page."
-        }
-      ]
-    },
-    {
-      "id": "release",
-      "at": "2026-01-15T15:00:00Z",
-      "summary": "Let the glass settle on release.",
-      "sources": [
-        {
-          "id": "github:example:polish-44",
-          "type": "pull-request",
-          "url": "https://example.invalid/pull/44",
-          "title": "Let the glass settle on release",
-          "repository": "example/studio",
-          "number": 44,
-          "state": "merged",
-          "text": "Ease out the last bit of movement on release, then leave the lens still."
-        }
-      ]
-    },
-    {
-      "id": "mobile",
-      "at": "2026-01-15T16:00:00Z",
-      "summary": "Keep touch dragging inside the hero.",
-      "sources": [
-        {
-          "id": "github:example:polish-45",
-          "type": "pull-request",
-          "url": "https://example.invalid/pull/45",
-          "title": "Keep touch dragging inside the hero",
-          "repository": "example/studio",
-          "number": 45,
-          "state": "merged",
-          "text": "Constrain the lens to the hero bounds on narrow screens. Scrolling outside the lens stays natural."
-        }
-      ]
-    },
-    {
-      "id": "recap",
-      "at": "2026-01-16T17:10:00Z",
-      "summary": "Shared the finished glass interaction.",
-      "sources": [
-        {
-          "id": "social:example:recap",
-          "type": "post",
-          "url": "https://example.invalid/posts/recap",
-          "author": {
-            "name": "Alex Morgan"
-          },
-          "at": "2026-01-16T17:10:00Z",
-          "context": "Post",
-          "text": "A little glass study. Lighter at rest, draggable, with the type bending underneath. The last few details took longer than the first pass.",
-          "attachments": [
-            {
-              "id": "example:motion",
-              "kind": "video",
-              "name": "Glass interaction",
-              "alt": "A glass lens moves across large black typography, magnifying and distorting the letters, then settles.",
-              "url": "https://example.invalid/files/glass"
-            }
-          ]
-        }
-      ]
-    }
-  ]
+  "identity": {
+    "github": "jamesvclements"
+  }
 }
