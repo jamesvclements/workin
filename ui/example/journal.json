@@ -27,7 +27,61 @@
           "additions": 1739,
           "deletions": 6410,
           "changedFiles": 74,
-          "descriptionHtml": "<p>Turns <code>before-and-after</code> into a thin skill around <code>agent-browser</code> and <code>gh --attach</code>. Browser capture and Vercel access stay with their source tool; this package now owns PR formatting, attachment publishing, and guidance for intelligent captures.</p><p><em>Excerpt</em></p>"
+          "descriptionHtml": "<p>Turns <code>before-and-after</code> into a thin skill around <code>agent-browser</code> and <code>gh --attach</code>. Browser capture and Vercel access stay with their source tool; this package now owns PR formatting, attachment publishing, and guidance for intelligent captures.</p>"
+        }
+      ]
+    },
+    {
+      "id": "skill-launch",
+      "parentId": "skill",
+      "at": "2026-09-02T21:17:39.705Z",
+      "summary": "Shared the updated before-and-after skill.",
+      "sources": [
+        {
+          "id": "slack:demo:skill-launch",
+          "type": "slack",
+          "url": "",
+          "author": {
+            "name": "James Clements"
+          },
+          "at": "2026-09-02T21:17:39.705Z",
+          "context": "#design",
+          "parts": [
+            {
+              "text": "New version of our /before-and-after skill is live, making it easier for agents to add visual proof to PRs. Try it out!\n"
+            },
+            {
+              "text": "npx skills add vercel-labs/before-and-after#main",
+              "style": "codeblock"
+            },
+            {
+              "text": "\n• Files upload directly to GitHub with the new "
+            },
+            {
+              "text": "gh --attach",
+              "style": "code"
+            },
+            {
+              "text": "\n• Supports image "
+            },
+            {
+              "text": "and video",
+              "style": "bold"
+            },
+            {
+              "text": "\n• Bypasses preview deployment protection using agent-browser's bundled skill"
+            }
+          ],
+          "reactions": [
+            {
+              "label": "🔥🔥",
+              "count": 13
+            },
+            {
+              "label": "black_heart",
+              "count": 4
+            }
+          ]
         }
       ]
     },
@@ -51,7 +105,7 @@
           "additions": 1289,
           "deletions": 173,
           "changedFiles": 14,
-          "descriptionHtml": "<p>Video recording captured 10 fps by polling <code>Page.captureScreenshot</code> on a fixed interval, so scrolls, hovers, and transitions came out as a slideshow. Recording now defaults to 30 fps, accepts <code>--fps</code> from 1 to 60, and takes its frames from <code>Page.startScreencast</code> on a dedicated CDP session, so a 60 fps take actually holds 60 distinct pictures per second.</p><p><em>Excerpt</em></p>"
+          "descriptionHtml": "<p>Video recording captured 10 fps by polling <code>Page.captureScreenshot</code> on a fixed interval, so scrolls, hovers, and transitions came out as a slideshow. Recording now defaults to 30 fps, accepts <code>--fps</code> from 1 to 60, and takes its frames from <code>Page.startScreencast</code> on a dedicated CDP session, so a 60 fps take actually holds 60 distinct pictures per second.</p>"
         }
       ]
     },
@@ -87,7 +141,14 @@
               "alt": "Public before-and-after recording comparison for agent-browser, showing the SWR and deepsec pages.",
               "url": "https://x.com/jamesvclements/status/2095570044214260128"
             }
-          ]
+          ],
+          "metrics": {
+            "replies": 10,
+            "reposts": 10,
+            "likes": 429,
+            "views": 27781,
+            "bookmarks": 360
+          }
         }
       ]
     }

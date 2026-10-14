@@ -10,7 +10,7 @@ A skill and composed UI for a personal work journal. Your agent supplies connect
 - [ui/index.js](ui/index.js): `createTimeline`, `createCard`, `createPair`, and `createPullRequestChip`.
 - [ui/index.d.ts](ui/index.d.ts): the display contract and API options.
 - [ui/components/cards/](ui/components/cards/): individual source cards and shared parts. Timeline, threads, media, and lifecycle live beside them.
-- [ui/example/](ui/example/): a three-moment journal from James's public before-and-after and agent-browser work.
+- [ui/example/](ui/example/): a four-moment journal from James's public before-and-after and agent-browser work.
 
 No dependencies or build step. Serve this directory on localhost with a static server that supports byte-range requests for video, then open `/ui/example/`.
 
@@ -28,6 +28,6 @@ timeline.update({ view: { from: '2026-09-03', to: '2026-09-03' } });
 
 ## Example sources
 
-The PR cards use labeled description excerpts from [before-and-after #5](https://github.com/vercel-labs/before-and-after/pull/5) and [agent-browser #1763](https://github.com/vercel-labs/agent-browser/pull/1763). The [public announcement](https://x.com/jamesvclements/status/2095570044214260128) retains its original text and recording, cached under `ui/example/assets/`. No private Slack messages, colleague identities, or engagement snapshots are included. Example data is display data, not a lossless archive.
+The PR cards use opening paragraphs from [before-and-after #5](https://github.com/vercel-labs/before-and-after/pull/5) and [agent-browser #1763](https://github.com/vercel-labs/agent-browser/pull/1763). The [public announcement](https://x.com/jamesvclements/status/2095570044214260128) retains its original text and recording, cached under `ui/example/assets/`. The Slack card adapts James's launch message about the public skill, retaining reaction totals with standard emoji. Private permalinks, account IDs, attachments, and colleague replies are omitted. X engagement counts are a saved snapshot from October 14, 2026, not live counters. Example data is display data, not a lossless archive.
 
 [Icon attribution](ui/ICON-LICENSES.txt).
