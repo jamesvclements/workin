@@ -9,12 +9,16 @@
     },
     "example:after": {
       "src": "./after.svg"
+    },
+    "example:motion": {
+      "src": "./glass.mp4",
+      "poster": "./after.svg"
     }
   },
   "groups": [
     {
-      "id": "onboarding",
-      "summary": "Made the first minute feel smaller. Took onboarding from an early prototype to a shipped, two-step flow.",
+      "id": "glass",
+      "summary": "Took a glass hero from a first study to a quieter, draggable interaction.",
       "momentIds": [
         "prototype",
         "feedback",
@@ -22,12 +26,12 @@
       ],
       "sourceIds": [
         "slack:example:prototype",
-        "github:example:onboarding-42"
+        "github:example:glass-42"
       ]
     },
     {
       "id": "polish",
-      "summary": "Finished three small fixes around focus, saved input, and narrow screens.",
+      "summary": "Polished keyboard movement, release behavior, and touch dragging.",
       "momentIds": [
         "focus",
         "draft",
@@ -39,7 +43,7 @@
     {
       "id": "prototype",
       "at": "2026-01-12T10:15:00Z",
-      "summary": "Shared a quieter first pass at onboarding. One decision at a time.",
+      "summary": "First pass at the glass hero.",
       "sources": [
         {
           "id": "slack:example:prototype",
@@ -50,7 +54,7 @@
           },
           "at": "2026-01-12T10:15:00Z",
           "context": "#design",
-          "text": "First pass at the welcome flow. We were asking for five things before someone could try anything.\n\nWhat if we start with just a name, then let them explore? Before and after below.",
+          "text": "Playing with a glass lens over the headline. It magnifies and distorts the type as you move it.\n\nFirst pass below. The rim and shadow still feel a bit heavy.",
           "reactions": [
             {
               "label": "eyes",
@@ -65,16 +69,9 @@
             {
               "id": "example:before",
               "kind": "image",
-              "name": "Before \u00b7 everything at once",
-              "alt": "Fictional onboarding form asking for several details.",
+              "name": "First pass",
+              "alt": "Early glass study with a heavier lens over large black typography.",
               "url": "https://example.invalid/files/before"
-            },
-            {
-              "id": "example:after",
-              "kind": "image",
-              "name": "After \u00b7 just the first step",
-              "alt": "Fictional welcome screen with a single name field.",
-              "url": "https://example.invalid/files/after"
             }
           ]
         }
@@ -84,7 +81,7 @@
       "id": "feedback",
       "parentId": "prototype",
       "at": "2026-01-12T14:30:00Z",
-      "summary": "Made the second step optional after Sam's feedback.",
+      "summary": "Blurred the whole supporting line after Sam’s feedback.",
       "sources": [
         {
           "id": "slack:example:feedback",
@@ -94,12 +91,21 @@
             "name": "Sam Rivera"
           },
           "at": "2026-01-12T13:50:00Z",
-          "context": "#design \u00b7 Thread reply",
-          "text": "This feels much better. Could the workspace step be skippable too? I'd love to see the product before naming the space.",
+          "context": "#design · Thread reply",
+          "text": "This pass is much closer. The lighter rim and consistent blur across the supporting line make a difference. Let’s keep the glass still until I drag it.",
           "reactions": [
             {
               "label": "thumbsup",
               "count": 2
+            }
+          ],
+          "attachments": [
+            {
+              "id": "example:after",
+              "kind": "image",
+              "name": "Lighter rim and shadow",
+              "alt": "Refined glass study with a subtle rim, softer shadow, and consistent supporting-line blur.",
+              "url": "https://example.invalid/files/after"
             }
           ]
         }
@@ -109,20 +115,20 @@
       "id": "shipped",
       "parentId": "feedback",
       "at": "2026-01-14T16:05:00Z",
-      "summary": "Shipped the two-step welcome flow, including the skip we discussed.",
+      "summary": "Shipped the draggable lens. Quiet until you move it.",
       "sources": [
         {
-          "id": "github:example:onboarding-42",
+          "id": "github:example:glass-42",
           "type": "pull-request",
           "url": "https://example.invalid/pull/42",
-          "title": "Make the first-run setup smaller",
+          "title": "Make the glass hero draggable",
           "repository": "example/studio",
           "number": 42,
           "state": "merged",
           "author": {
             "name": "Alex Morgan"
           },
-          "text": "Ask for a name first. Move workspace settings to an optional second step.\n\nKeeps entered values when going back and restores focus to the field that needs attention.",
+          "text": "The lens stays still until dragged. Refraction follows its position, with a lighter rim and shadow.\n\nApplies the blur to the full supporting line. The recorded pass includes movement across both lines of type.",
           "additions": 86,
           "deletions": 124
         }
@@ -131,74 +137,74 @@
     {
       "id": "walkthrough",
       "at": "2026-01-15T11:00:00Z",
-      "summary": "Scheduled a walkthrough to hear what still feels confusing.",
+      "summary": "Scheduled a review of the glass interaction.",
       "sources": [
         {
           "id": "calendar:example:walkthrough",
           "type": "event",
           "url": "https://example.invalid/events/walkthrough",
-          "title": "First-run walkthrough",
+          "title": "Glass interaction review",
           "start": "2026-01-16T15:00:00Z",
           "end": "2026-01-16T15:30:00Z",
-          "status": "Scheduled \u00b7 attendance unknown"
+          "status": "Scheduled · attendance unknown"
         }
       ]
     },
     {
       "id": "focus",
       "at": "2026-01-15T14:00:00Z",
-      "summary": "Keep keyboard focus on the active field.",
+      "summary": "Move the lens with arrow keys.",
       "sources": [
         {
           "id": "github:example:polish-43",
           "type": "pull-request",
           "url": "https://example.invalid/pull/43",
-          "title": "Keep keyboard focus on the active field",
+          "title": "Move the lens with arrow keys",
           "repository": "example/studio",
           "number": 43,
           "state": "merged",
-          "text": "Restore focus after going back so the next keystroke reaches the right field."
+          "text": "Keep focus on the lens and allow arrow-key movement without scrolling the page."
         }
       ]
     },
     {
       "id": "draft",
       "at": "2026-01-15T15:00:00Z",
-      "summary": "Keep the name when setup is skipped.",
+      "summary": "Let the glass settle on release.",
       "sources": [
         {
           "id": "github:example:polish-44",
           "type": "pull-request",
           "url": "https://example.invalid/pull/44",
-          "title": "Keep the name when setup is skipped",
+          "title": "Let the glass settle on release",
           "repository": "example/studio",
           "number": 44,
           "state": "merged",
-          "text": "Preserve the draft name while exploring. Return to the same value on the next visit."
+          "text": "Ease out the last bit of movement on release, then leave the lens still."
         }
       ]
     },
     {
       "id": "mobile",
       "at": "2026-01-15T16:00:00Z",
-      "summary": "Fit the welcome step on a narrow screen.",
+      "summary": "Keep touch dragging inside the hero.",
       "sources": [
         {
           "id": "github:example:polish-45",
           "type": "pull-request",
           "url": "https://example.invalid/pull/45",
-          "title": "Fit the welcome step on a narrow screen",
+          "title": "Keep touch dragging inside the hero",
           "repository": "example/studio",
           "number": 45,
           "state": "merged",
-          "text": "Keep the action visible above the keyboard and avoid horizontal scrolling."
+          "text": "Constrain the lens to the hero bounds on narrow screens. Scrolling outside the lens stays natural."
         }
       ]
     },
     {
       "id": "recap",
       "at": "2026-01-16T17:10:00Z",
-      "summary": "Shared the finished welcome flow.",
+      "summary": "Shared the finished glass interaction.",
       "sources": [
         {
           "id": "social:example:recap",
@@ -209,13 +215,14 @@
           },
           "at": "2026-01-16T17:10:00Z",
           "context": "Post",
-          "text": "A small thing from this week: making the first minute feel like using the product, not filling in a form.",
+          "text": "A little glass study. Lighter at rest, draggable, with the type bending underneath. The last few details took longer than the first pass.",
           "attachments": [
             {
-              "id": "example:after",
-              "kind": "image",
-              "name": "One small first step",
-              "url": "https://example.invalid/files/after"
+              "id": "example:motion",
+              "kind": "video",
+              "name": "Glass interaction",
+              "alt": "A glass lens moves across large black typography, magnifying and distorting the letters, then settles.",
+              "url": "https://example.invalid/files/glass"
             }
           ]
         }

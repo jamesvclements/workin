@@ -17,7 +17,7 @@ Read the [UX contract](../references/ux.md) before integration. The page contain
     moments: [{
       id: 'prototype-shared',
       at: '2026-01-12T10:00:00Z',
-      summary: 'Shared the first onboarding prototype.',
+      summary: 'Shared the first glass interaction study.',
       sources: [{
         id: 'slack:example:message-1',
         type: 'slack',
@@ -25,7 +25,7 @@ Read the [UX contract](../references/ux.md) before integration. The page contain
         author: { name: 'Alex Morgan' },
         at: '2026-01-12T10:00:00Z',
         context: '#design',
-        text: 'First pass at onboarding. Feedback on the account step?',
+        text: 'First pass at the glass hero. The rim feels a little heavy.',
       }],
     }],
   });
@@ -39,6 +39,8 @@ Read the [UX contract](../references/ux.md) before integration. The page contain
 Serve modules over HTTP, not `file://`. Paths above assume the page sits beside `ui/`. The example adds only a loader for a local JSON fixture and relative cached assets. A real host watches saved local data and calls `update()`.
 
 The demo is limited to verified Slack, GitHub PR, X, and Calendar source types. Its loader rejects other types. The component API below is broader; that is not permission to add source integrations to the demo.
+
+The fictional glass study includes two editable SVG stills and an eight-second local MP4. Slack shows the iterations; X shows the motion with the finished still as its poster. These are authored sample assets, not screenshots or recordings of private work.
 
 ## Display data
 

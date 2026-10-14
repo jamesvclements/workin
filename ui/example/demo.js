@@ -19,6 +19,7 @@ try {
   // Resolve relative demo assets explicitly, independent of the host page URL.
   for (const asset of Object.values(journal.media)) {
     asset.src = new URL(asset.src, import.meta.url).href;
+    if (asset.poster) asset.poster = new URL(asset.poster, import.meta.url).href;
   }
   // The agent supplies the presentation in journal.json. The page displays it.
   createTimeline(container, journal);
