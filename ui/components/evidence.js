@@ -29,7 +29,7 @@ function dateParts(at, timeZone) {
 export function sourceRecord(source, options = {}) {
   if ("layout" in source)
     throw Error(
-      "Attachment layouts are source-native. Use group.layout only for source-card pairs or stacks.",
+      "Attachment layouts are source-native. Use group.layout only for a source-card pair.",
     );
   const media = options.media || {},
     timeZone = options.timeZone || "UTC";
@@ -218,7 +218,7 @@ export function snapshotFrom(options, instanceId) {
         throw Error(`Unknown or overlapping group member: ${id}`);
       used.add(id);
     }
-    if (group.layout && !["pair", "stack"].includes(group.layout))
+    if (group.layout && group.layout !== "pair")
       throw Error("Unknown card group layout.");
     const members = day.moments.filter((moment) =>
       group.momentIds.includes(moment.id),
@@ -250,21 +250,17 @@ export function snapshotFrom(options, instanceId) {
         variant: "compact",
       })),
     });
-    if (group.layout === "stack" || group.layout === "pair") {
-      if (
-        (group.layout === "pair" && members.length !== 2) ||
-        (group.layout === "stack" && members.length !== 3)
-      )
-        throw Error("Pairs need two cards; stacks need three.");
+    if (group.layout === "pair") {
+      if (members.length !== 2) throw Error("Pairs need two cards.");
       if (members.some((moment) => moment.records.length !== 1))
-        throw Error("Each stacked moment must have exactly one source card.");
+        throw Error("Each paired moment must have exactly one source card.");
       const indices = members.map((moment) => day.moments.indexOf(moment));
       if (
         indices.some(
           (index, position) => position && index !== indices[position - 1] + 1,
         )
       )
-        throw Error("Only adjacent moments can form a card pair or stack.");
+        throw Error("Only adjacent moments can form a card pair.");
       if (
         members.some(
           (moment) =>
@@ -272,12 +268,11 @@ export function snapshotFrom(options, instanceId) {
             byId.get(moment.id).parentId,
         )
       )
-        throw Error("Use threads for connected developments, not card stacks.");
+        throw Error("Use threads for connected developments, not card pairs.");
       presentation.detailedGroups.push({
         ...group,
         momentIds: members.map((moment) => moment.id),
         reason: group.reason || "",
-        stacked: true,
       });
     }
   }

@@ -32,9 +32,7 @@
         "focus",
         "draft",
         "mobile"
-      ],
-      "layout": "stack",
-      "reason": "Three adjacent independent fixes with one original PR card each."
+      ]
     }
   ],
   "moments": [

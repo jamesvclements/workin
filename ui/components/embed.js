@@ -108,3 +108,12 @@ export function createEmbeds({
 
   return presentEmbed;
 }
+
+/** Two source cards beside each other, with normal vertical flow on narrow screens. */
+export function createPair(nodes) {
+  if (nodes.length !== 2)
+    throw Error("A source-card pair needs exactly two cards.");
+  const pair = element("div", "embed-split");
+  pair.append(...nodes);
+  return pair;
+}

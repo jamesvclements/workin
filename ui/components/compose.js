@@ -1,6 +1,5 @@
 import { createCards } from "./cards.js";
-import { createEmbeds } from "./embed.js";
-import { createStacks } from "./stack.js";
+import { createEmbeds, createPair as createSplitPair } from "./embed.js";
 import { createLifetime } from "./lifetime.js";
 import { createMedia } from "./media.js";
 import { sourceRecord } from "./evidence.js";
@@ -43,28 +42,15 @@ export function createCard(source, options = {}) {
   return card;
 }
 
-/** The original split pair / three-card gesture stack. No paging buttons. */
-export function createStack(nodes) {
-  if (![2, 3].includes(nodes.length))
-    throw Error(
-      "Use two source cards for a split pair, or three for a gesture stack.",
-    );
+/** Compose two original source cards without navigation or overlapping layers. */
+export function createPair(nodes) {
   if (nodes.some((node) => !node.matches(".rich-embed")))
-    throw Error(
-      "Compose source cards from createCard(), not an attachment carousel.",
-    );
-  const scope = createLifetime();
-  const stack = createStacks({
-    ...scope,
-    reducedMotion: matchMedia("(prefers-reduced-motion: reduce)"),
-  })(nodes);
-  stack.dispose = () => {
-    for (const animation of stack.getAnimations({ subtree: true }))
-      animation.cancel();
+    throw Error("Compose source cards from createCard().");
+  const pair = createSplitPair(nodes);
+  pair.dispose = () => {
     for (const node of nodes) node.dispose?.();
-    scope.destroy();
   };
-  return stack;
+  return pair;
 }
 
 export function createPullRequestChip(source) {

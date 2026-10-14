@@ -54,7 +54,7 @@ Serve modules over HTTP, not `file://`. Paths above assume the page sits beside 
 
 Source types are Slack messages, posts, PRs, documents, calendar events, and links. Preserve the original text, author, time, status, and provenance. `parts` preserves formatted text without executable HTML. PR `descriptionHtml` is copied through an allowlist; resolve any embedded media to your local cache first.
 
-For a pair or stack of **source cards**, set a group's `layout` to `pair` or `stack`. This requires exactly two or three adjacent independent moments, each with one source. Use `parentId` and threads for developments over time. Do not set a source or attachment `layout`: attachment arrays keep their provider-native treatment. No image carousel is provided.
+Source cards follow normal document flow. For a side-by-side pair, set a group's `layout` to `pair`; this requires exactly two adjacent independent moments, each with one source. Use `parentId` and threads for developments over time. Do not set a source or attachment `layout`: attachment arrays keep their provider-native treatment. Overlapping decks, swipe stacks, and carousels are not supported.
 
 Groups with filtered-out members fall back to the remaining individual moments. Threads focus connected developments within the supplied view. Highlight groups open their member moments. Grouping does not imply a literal provider thread.
 
@@ -76,13 +76,13 @@ These are browser URLs served from the host's private cache, not filesystem path
 Prefer `createTimeline()` for a journal. Compose individual pieces only when integrating into an existing host; retain their styles and behavior.
 
 ```js
-import { createCard, createStack } from './ui/index.js';
+import { createCard, createPair } from './ui/index.js';
 
 container.classList.add('workin');
 const cards = sources.map(source => createCard(source, { media, emoji }));
-const stack = createStack(cards); // Exactly two or three source cards.
-container.append(stack);
-// Before removing it: stack.dispose();
+const pair = createPair(cards); // Exactly two source cards.
+container.append(pair);
+// Before removing it: pair.dispose();
 ```
 
 | Export | Responsibility |
@@ -90,14 +90,14 @@ container.append(stack);
 | `createTimeline(container, options)` | Timeline, bubbles, dates, relationships, original animated thread focus; returns `update` and `destroy` |
 | `createCard(source, options)` | Original source card; `compact: true` uses the expand/collapse crop |
 | `createPullRequestChip(source)` | Linked PR title with its colored lifecycle icon |
-| `createStack(cards)` | Two-card split pair or three-card gesture stack, no visible pager |
+| `createPair(cards)` | Two source cards side by side; vertical on narrow screens |
 
-Cards and stacks return DOM elements with `dispose()`. The timeline owns its own `.workin` wrapper and cleans up its listeners, observers, animations, dialogs, and media. Standalone components require a `.workin` ancestor and explicit disposal. CSS is scoped with native nesting; use a current browser.
+Cards and pairs return DOM elements with `dispose()`. The timeline owns its own `.workin` wrapper and cleans up its listeners, observers, animations, dialogs, and media. Standalone components require a `.workin` ancestor and explicit disposal. CSS is scoped with native nesting; use a current browser.
 
 `update()` replaces supplied top-level fields. Supply a full `view` or media map. It preserves expanded cards and the visible scroll anchor; an open thread is reopened when its view is unchanged. A changed view closes the thread. Updates rebuild cards, so playing media is paused. Storage, history, and refresh wiring belong to the host.
 
 ## Internal composition
 
-`evidence.js` adapts the display data. `renderer.js` composes the timeline. `cards.js` renders source evidence. `embed.js`, `thread.js`, `stack.js`, and `media.js` each own one reading interaction. `lifetime.js` handles cleanup. `styles.css` preserves the original appearance, including brand colors, spacing, and motion.
+`evidence.js` adapts the display data. `renderer.js` composes the timeline. `cards.js` renders source evidence. `embed.js`, `thread.js`, and `media.js` each own one reading interaction. `lifetime.js` handles cleanup. `styles.css` preserves the original appearance, including brand colors, spacing, and motion.
 
 Extend a source type in `index.d.ts`, `evidence.js`, and `cards.js` when needed. Keep gathering outside rendering. Do not replace the renderer or restyle the journal unless the user explicitly requests a visual change.

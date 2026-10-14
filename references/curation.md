@@ -30,7 +30,7 @@ The agent chooses the presentation in response to the user's request. A detailed
 
 ## Choose evidence the eye can recognize
 
-Use the original Slack message, PR description, document excerpt, or public post when that is where the useful explanation lives. Prefer a clear demo image or recording over a wall of prose. Keep before/after media within its original source card. Use the supplied pair or gesture stack only for two or three adjacent, independent source cards. An attachment array is never a reason to invent a carousel. Retain other attachments locally even when only one is shown.
+Use the original Slack message, PR description, document excerpt, or public post when that is where the useful explanation lives. Prefer a clear demo image or recording over a wall of prose. Keep before/after media within its original source card. Show source cards in normal vertical flow, or use a side-by-side pair for exactly two adjacent, independent source cards. Never overlap cards or add swipe navigation. An attachment array is never a reason to invent a carousel. Retain other attachments locally even when only one is shown.
 
 Choose representative source IDs for a highlight. Avoid duplicating every PR card when an inline PR chip is enough. Keep source links and original authors visible.
 

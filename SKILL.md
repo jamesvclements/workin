@@ -29,7 +29,7 @@ Guidance and UI for remembering work. The user's agent supplies connections, jud
 
 **The agent controls the presentation.** The user asks their agent to change dates, grouping, or fidelity; the agent updates saved data and the viewer reflects it. Do not add a view switcher, date-picker toolbar, or another chat input unless explicitly requested. Keep reading interactions such as opening threads, expanding source cards, and playing media.
 
-The page starts with the timeline: no visible title, introduction, demo disclaimer, or footer. Threads animate the existing cards into focus; use “updates,” not “moments,” in their links. Keep brand colors and the original attachment previews. Source-card stacks have gesture/keyboard navigation, never visible carousel controls. See the UX contract for exact behavior.
+The page starts with the timeline: no visible title, introduction, demo disclaimer, or footer. Threads animate the existing cards into focus; use “updates,” not “moments,” in their links. Keep brand colors and the original attachment previews. Present source cards in normal document flow. Never create overlapping decks, swipe stacks, or carousels. See the UX contract for exact behavior.
 
 Short narrative bubbles establish the moment. Rich cards show the original messages, pull requests, documents, and media. Threads connect earlier ideas with later developments. The agent can move from a detailed timeline to a few highlights without losing the underlying evidence.
 

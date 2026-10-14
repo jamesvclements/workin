@@ -93,8 +93,8 @@ export interface Group {
   momentIds: string[];
   /** Representative sources from these moments. Omit to use the first, [] for none. */
   sourceIds?: string[];
-  /** Detailed view only: two or three adjacent independent moments, one source each. */
-  layout?: "pair" | "stack";
+  /** Detailed view only: two adjacent independent moments, one source each. */
+  layout?: "pair";
   reason?: string;
 }
 /** Agent-authored rendering state. The viewer does not render mode/date controls. */
@@ -141,5 +141,5 @@ export function createCard(
   options?: CardOptions,
 ): DisposableElement;
 export function createPullRequestChip(source: PullRequestSource): HTMLElement;
-/** Original split pair (two cards) or gesture stack (three cards). */
-export function createStack(nodes: HTMLElement[]): DisposableElement;
+/** Two original source cards in a responsive split layout. */
+export function createPair(nodes: HTMLElement[]): DisposableElement;

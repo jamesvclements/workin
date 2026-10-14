@@ -20,7 +20,7 @@ workin/
 ├── SKILL.md          Where your agent starts
 ├── references/       Gathering, curation, and the UX contract
 └── ui/
-    ├── components/   Bubbles, source cards, threads, media, stacks
+    ├── components/   Bubbles, source cards, threads, media
     ├── styles.css    The visual treatment
     ├── index.js      Public component exports
     ├── index.d.ts    The display-data contract
@@ -51,7 +51,7 @@ Open [the example](http://127.0.0.1:8000/ui/example/). Read the timeline, open a
 
 ## Preserve the experience
 
-Use the supplied renderer and stylesheet directly. The [UX contract](references/ux.md) specifies the original inline thread animation, brand colors, attachment treatment, and card gestures. No visible page title, promotional footer, mode switcher, or carousel pager. Personalize the work through the agent; visual changes need an explicit request.
+Use the supplied renderer and stylesheet directly. The [UX contract](references/ux.md) specifies the original inline thread animation, brand colors, and attachment treatment. No visible page title, promotional footer, mode switcher, or card carousel. Personalize the work through the agent; visual changes need an explicit request.
 
 Add a source adapter or bring the components into an existing project. Preserve original evidence and keep personal records, credentials, downloaded media, and user preferences outside this repository. The example data is a display fixture, not a storage format.
 

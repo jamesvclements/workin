@@ -16,7 +16,7 @@ Compare the supplied example with this [reference screenshot](appearance.png), c
 | Thread labels | The detailed view counts **later developments**: “1 update” or “2 updates” with the down icon. Never “3 moments in this thread ↗”. The last development has no later-update link. Highlights count the group's members. |
 | Source identity | Preserve native brand colors, including the multicolor Slack mark and PR state colors. Keep authors, source times, reactions, and original links. |
 | Attachments | Slack uses the original small attachment previews, with cached image/video opening behavior. Posts retain inline media. PR comparisons remain part of the original PR evidence. Do not turn an attachment array into a card deck. |
-| Card composition | A pair is two original source cards side by side. A stack is three original source cards using the supplied gesture/keyboard interaction. No visible previous/next arrows, dots, or “1 of 3” pager. The position announcement is for screen readers only. |
+| Card composition | Cards follow normal document flow, with an optional side-by-side pair of two source cards. Never overlap cards or introduce decks, swipe stacks, carousels, paging arrows, dots, or position counters. |
 | Cropped cards | Use the existing compact crop and expand/collapse button. Preserve original content and the height animation. |
 | Persistence | Views read cached evidence. Keep full records, media bytes, collection progress, relationships, and user corrections. Changing presentation must not trigger a provider refetch. |
 
@@ -30,7 +30,7 @@ Manually check the rendered page; a successful load is insufficient. No test fra
 - Open “2 updates”: the three existing developments animate into focus, without a new modal header. Close with Escape and by clicking the backdrop; the same nodes and scroll position return.
 - Check the next development says “1 update” and the last has no update link.
 - Open a cached attachment and expand a cropped card. Verify the original text and source links remain accessible.
-- For a three-card group, drag or use Left/Right on the focused stack. No visible paging controls. A two-card group uses the split layout.
+- Every source card is directly readable in normal flow. A two-card pair uses the responsive split layout. No overlapping or swipeable cards.
 - Have the agent change saved view data. The host reflects it, restores the normal view when filters clear, and makes no source-provider requests.
 - Check keyboard focus, reduced motion, cleanup, and browser errors.
 

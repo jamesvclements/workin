@@ -1,6 +1,6 @@
 export { createTimeline } from "./components/timeline.js";
 export {
   createCard,
-  createStack,
+  createPair,
   createPullRequestChip,
 } from "./components/compose.js";

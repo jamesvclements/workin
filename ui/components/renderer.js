@@ -1,22 +1,13 @@
 import { element, icon } from "./dom.js";
 import { createCards } from "./cards.js";
-import { createEmbeds } from "./embed.js";
-import { createStacks } from "./stack.js";
+import { createEmbeds, createPair } from "./embed.js";
 import { createMedia } from "./media.js";
 import { installItemNavigation } from "./item-navigation.js";
 import { createThreadFocus } from "./thread.js";
 import { createLifetime } from "./lifetime.js";
 export function mount(root, snapshot) {
   const scope = createLifetime();
-  const {
-    lifetime,
-    listen,
-    setTimeout,
-    clearTimeout,
-    requestAnimationFrame,
-    cancelAnimationFrame,
-    ResizeObserver,
-  } = scope;
+  const { lifetime, ResizeObserver } = scope;
   const day = structuredClone(snapshot.native.day);
   const presentation = structuredClone(snapshot.native.presentation);
   const timeline = root.querySelector(".timeline");
@@ -106,7 +97,6 @@ export function mount(root, snapshot) {
     timestampContents,
   });
   const openThread = thread.open;
-  const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)");
 
   function jumpLink(text, id, className) {
     const link = element("a", className, text);
@@ -207,15 +197,6 @@ export function mount(root, snapshot) {
     timeline.appendChild(section);
   });
 
-  const createEmbedStack = createStacks({
-    reducedMotion,
-    listen,
-    setTimeout,
-    clearTimeout,
-    requestAnimationFrame,
-    cancelAnimationFrame,
-    ResizeObserver,
-  });
   const groupedIds = new Set();
   for (const group of snapshot.view.mode === "detailed"
     ? presentation.detailedGroups
@@ -267,7 +248,8 @@ export function mount(root, snapshot) {
       groupedIds.add(members[index].id);
     }
     wrapper.style.marginBottom = "var(--time-block-gap)";
-    if (group.stacked) wrapper.appendChild(createEmbedStack(nodes));
+    if (group.layout === "pair" && nodes.length === 2)
+      wrapper.appendChild(createPair(nodes));
   }
 
   const compactTimeline = root.querySelector(".compact-timeline");
