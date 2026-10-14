@@ -287,7 +287,7 @@
     font-size: inherit;
     margin-top: 3px;
   }
-  .source-& {
+  .source-body {
     white-space: pre-wrap;
     overflow-wrap: anywhere;
     font-size: inherit;
@@ -481,7 +481,7 @@
     position: relative;
     overflow: hidden;
   }
-  .slack-collapsed .source-& {
+  .slack-collapsed .source-body {
     max-height: 72px;
     overflow: hidden;
     mask-image: linear-gradient(#000 35%, transparent 100%);
@@ -844,7 +844,7 @@
   .tweet-card .source-avatar {
     border-radius: 50%;
   }
-  .tweet-card .source-& {
+  .tweet-card .source-body {
     font-size: inherit;
     line-height: inherit;
   }
@@ -890,7 +890,7 @@
     border: 1px solid #dedee2;
     border-radius: 12px;
   }
-  .source-quote .source-& {
+  .source-quote .source-body {
     font-size: inherit;
   }
   .component-preview {
@@ -1471,7 +1471,7 @@
     border: 0;
     color: var(--blue);
   }
-  .embed-compact > .source-content > .source-& {
+  .embed-compact > .source-content > .source-body {
     display: -webkit-box;
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
@@ -1998,7 +1998,10 @@
     gap: 7px;
     font-weight: 400;
   }
-  .tweet-card > .source-content > p.source-meta {
+  .tweet-card.crop-embed {
+    padding-bottom: 0;
+  }
+  .tweet-card .source-content > p.source-meta {
     margin: 16px 0 0;
   }
   .tweet-card .tweet-engagement {
