@@ -5,14 +5,14 @@
   },
   "media": {
     "example:before": {
-      "src": "./before.svg"
+      "src": "./assets/glass-first-pass.svg"
     },
     "example:after": {
-      "src": "./after.svg"
+      "src": "./assets/glass-refined.svg"
     },
     "example:motion": {
-      "src": "./glass.mp4",
-      "poster": "./after.svg"
+      "src": "./assets/glass-motion.mp4",
+      "poster": "./assets/glass-refined.svg"
     }
   },
   "groups": [
@@ -33,8 +33,8 @@
       "id": "polish",
       "summary": "Polished keyboard movement, release behavior, and touch dragging.",
       "momentIds": [
-        "focus",
-        "draft",
+        "keyboard",
+        "release",
         "mobile"
       ]
     }
@@ -151,7 +151,7 @@
       ]
     },
     {
-      "id": "focus",
+      "id": "keyboard",
       "at": "2026-01-15T14:00:00Z",
       "summary": "Move the lens with arrow keys.",
       "sources": [
@@ -168,7 +168,7 @@
       ]
     },
     {
-      "id": "draft",
+      "id": "release",
       "at": "2026-01-15T15:00:00Z",
       "summary": "Let the glass settle on release.",
       "sources": [

@@ -40,7 +40,7 @@ Serve modules over HTTP, not `file://`. Paths above assume the page sits beside 
 
 The demo is limited to verified Slack, GitHub PR, X, and Calendar source types. Its loader rejects other types. The component API below is broader; that is not permission to add source integrations to the demo.
 
-The fictional glass study includes two editable SVG stills and an eight-second local MP4. Slack shows the iterations; X shows the motion with the finished still as its poster. These are authored sample assets, not screenshots or recordings of private work.
+The fictional glass study keeps its monochrome media in `example/assets/`: two editable SVG stills and an eight-second local MP4. Slack shows the iterations; X shows the motion with the finished still as its poster. These are authored sample assets, not screenshots or recordings of private work.
 
 ## Display data
 

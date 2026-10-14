@@ -12,7 +12,7 @@ The timeline should bring back the moment, not turn every source event into a ge
 
 ## Write bubbles that identify a real moment
 
-- Prefer “Fixed the account step after prototype feedback” to “Made significant progress on onboarding.”
+- Prefer “Lightened the glass rim after prototype feedback” to “Made significant progress on the design.”
 - Describe the person's contribution, not everything their team shipped.
 - Keep plans, in-progress work, reviews, and shipped outcomes distinct.
 - Use the person's recap and announcement posts as importance signals. Reactions can help, but quiet finishing work can be important too.
