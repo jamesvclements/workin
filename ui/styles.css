@@ -1754,7 +1754,7 @@
     display: block;
     width: fit-content;
     padding: 8px 13px;
-    border: 1.5px solid #dedee3;
+    border: 1px solid var(--line);
     border-radius: 18px;
     color: #85858d;
     background: #fff;

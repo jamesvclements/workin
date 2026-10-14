@@ -31,6 +31,7 @@ Manually check the rendered page; a successful load is insufficient. No test fra
 - Desktop and narrow screen: no extra chrome, no horizontal page overflow, original typography, spacing, colors, and attachment sizing.
 - Open “2 updates”: the three existing developments animate into focus, without a new modal header. Close with Escape and by clicking the backdrop; the same nodes and scroll position return.
 - Check the next development says “1 update” and the last has no update link.
+- Check the earlier-context ghost message in its normal, hover, and restored thread states: a subtle 1px `--line` outline, original muted text and connecting curve. Do not thicken its border or add a shadow.
 - Open a cached attachment and expand a cropped card. Verify the original text and source links remain accessible. Compare X posts in both full and expanded states: 16px between media and timestamp, normal 16px content padding below the date, and no added bottom spacer. Keep the demo X post full, matching the original journal.
 - Every source card is directly readable in normal flow. A two-card pair uses the responsive split layout. No overlapping or swipeable cards.
 - Have the agent change saved view data. The host reflects it, restores the normal view when filters clear, and makes no source-provider requests.
