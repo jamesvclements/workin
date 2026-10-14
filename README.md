@@ -47,7 +47,7 @@ From this directory, serve the files locally:
 python3 -m http.server 8000 --bind 127.0.0.1
 ```
 
-Open [the example](http://127.0.0.1:8000/ui/example/). Read the timeline, open a thread, and browse the media. Its presentation comes from the supplied data, just as it would from your agent. All people, work, links, and media in the example are fictional. No accounts are needed.
+Open [the example](http://127.0.0.1:8000/ui/example/). Read the timeline, open a thread, and browse the media. Its presentation comes from the supplied data, just as it would from your agent. The demo uses Slack, GitHub PRs, X posts, and Calendar, matching source types verified in the original journal. All people, work, links, and media in the example are fictional. No accounts are needed.
 
 ## Preserve the experience
 

@@ -22,6 +22,8 @@ Compare the supplied example with this [reference screenshot](appearance.png), c
 
 Put demo caveats in the README, not the journal. Fictional demo evidence is never mixed with the user's private history.
 
+The demo uses only Slack, GitHub pull requests, X posts, and Calendar, verified in the original journal. Its loader enforces that allowlist. Fictional content must not introduce an invented provider or source-card design. Adding another demo source requires an explicit user request and an original example to match.
+
 ## Before handing over a host or demo
 
 Manually check the rendered page; a successful load is insufficient. No test framework is required.

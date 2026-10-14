@@ -106,22 +106,6 @@
       ]
     },
     {
-      "id": "notes",
-      "at": "2026-01-13T09:20:00Z",
-      "summary": "Wrote down the principle so it survives this particular redesign.",
-      "sources": [
-        {
-          "id": "docs:example:first-minute",
-          "type": "document",
-          "url": "https://example.invalid/docs/first-minute",
-          "provider": "Notes",
-          "title": "The first minute",
-          "text": "Let people do something before asking them to configure everything.\n\nA useful first action teaches the product better than a checklist. Ask for information when it becomes relevant, and let optional decisions stay optional.",
-          "excerpt": true
-        }
-      ]
-    },
-    {
       "id": "shipped",
       "parentId": "feedback",
       "at": "2026-01-14T16:05:00Z",

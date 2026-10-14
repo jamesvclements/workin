@@ -38,6 +38,8 @@ Read the [UX contract](../references/ux.md) before integration. The page contain
 
 Serve modules over HTTP, not `file://`. Paths above assume the page sits beside `ui/`. The example adds only a loader for a local JSON fixture and relative cached assets. A real host watches saved local data and calls `update()`.
 
+The demo is limited to verified Slack, GitHub PR, X, and Calendar source types. Its loader rejects other types. The component API below is broader; that is not permission to add source integrations to the demo.
+
 ## Display data
 
 [index.d.ts](index.d.ts) defines the contract; [example/journal.json](example/journal.json) demonstrates it. This is a projection, **not a lossless storage schema**.
