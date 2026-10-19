@@ -1,6 +1,10 @@
+[![Skills are software](https://www.jm.sv/og/skills-are-software.png)](https://www.jm.sv/skills-are-software)
+
 # workin'
 
 A skill and composed UI for a personal work journal. Your agent supplies connections, private storage, and curation. Workin supplies the timeline.
+
+The ingredients behind [Skills are software](https://www.jm.sv/skills-are-software).
 
 > Read SKILL.md and build me a local work journal using these components and my existing connections. Start with one day. Keep the full evidence and media so we can revisit it without fetching again.
 
